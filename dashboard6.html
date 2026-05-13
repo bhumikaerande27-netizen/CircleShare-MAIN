@@ -56,6 +56,10 @@ body{
     background:#9333ea;
     border-radius:20px;
 }
+select,
+input[type="file"]{
+    color:black;
+}
 </style>
 </head>
 
@@ -253,14 +257,14 @@ Leaderboard 🏆
 <input id="subject" placeholder="Subject Name" class="w-full p-3 rounded-xl border mb-3">
 
 <div class="grid grid-cols-2 gap-3 mb-3">
-<select id="year" class="p-3 rounded-xl border">
+<select id="year" class="p-3 rounded-xl border text-black">
 <option>1st Year</option>
 <option selected>2nd Year</option>
 <option>3rd Year</option>
 <option>4th Year</option>
 </select>
 
-<select id="branch" class="p-3 rounded-xl border">
+<select id="branch" class="p-3 rounded-xl border text-black">
 <option>CSE</option>
 <option>AI/ML</option>
 <option>DS</option>
@@ -273,7 +277,7 @@ Leaderboard 🏆
 </select>
 </div>
 
-<select id="type" class="w-full p-3 rounded-xl border mb-3">
+<select id="type" class="w-full p-3 rounded-xl border mb-3 text-black">
 <option>Notes</option>
 <option>PYQ</option>
 <option>Reference Book</option>
@@ -291,7 +295,8 @@ Upload Document
 </label>
 
 <input 
-type="file" id="resourceFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg" class="w-full p-3 rounded-xl border bg-white dark:bg-slate-900"/>
+type="file"
+id="resourceFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg" class="w-full p-3 rounded-xl border bg-white text-black dark:text-black"/>
 <p class="text-xs text-slate-500 mt-2">
 Supported: PDF, DOCX, PPT, Images
 </p>
@@ -468,7 +473,7 @@ Ratings
 <div class="grid grid-cols-2 gap-3 mt-4">
 
 <a href="${r.fileURL}" target="_blank"
-class="bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 text-white py-2 rounded-lg text-center">
+class="bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 text-white py-2 rounded-lg text-center transition-all duration-300">
 Preview
 </a>
 
@@ -806,7 +811,7 @@ ${u.name===currentUser.name
 <span>
 ${index===0 ? '🥇' :
 index===1 ? '🥈' :
-index===2 ? '🥉' : '🏅'}
+index===2 ? '🥉' : '↪'}
 ${u.name}
 </span>
 
@@ -898,6 +903,8 @@ document.getElementById("editBranch").value;
 let newImage =
 document.getElementById("editImage").value;
 
+let oldName = currentUser.name;
+
 if(!newName || !newBranch || !newImage){
 
 alert("Please fill all fields");
@@ -933,12 +940,47 @@ localStorage.setItem(
 "users",
 JSON.stringify(users)
 );
+/* UPDATE LEADERBOARD */
+
+let leaderboard = JSON.parse(
+localStorage.getItem("leaderboard")
+) || [];
+
+/* REMOVE OLD NAME ENTRY */
+
+leaderboard = leaderboard.filter(
+user => user.name !== oldName
+);
+
+/* ADD UPDATED USER */
+
+leaderboard.push({
+name:newName,
+points:currentUser.points
+});
+
+/* SORT */
+
+leaderboard.sort(
+(a,b)=>b.points-a.points
+);
+
+/* SAVE */
+
+localStorage.setItem(
+"leaderboard",
+JSON.stringify(leaderboard)
+);
+
+/* RE-RENDER */
+
 renderProfile();
+
+renderLeaderboard();
 
 closeProfileModal();
 
 alert("Profile Updated 🚀");
-
 }
 
 async function loadResources(){
@@ -1066,7 +1108,7 @@ class="w-full p-3 rounded-xl border mb-4">
 
 <button
 onclick="saveProfile()"
-class="w-full bg-brand-600 text-white py-3 rounded-xl">
+class="w-full bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 text-white py-3 rounded-xl transition-all duration-300">
 
 Save Changes
 
