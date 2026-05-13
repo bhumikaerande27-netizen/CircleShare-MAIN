@@ -333,51 +333,7 @@ points:0
 let resources = [];
 let doubts = [];
 let leaderboard = [];
-async function syncUserToFirestore(){
 
-if(!currentUser.email) return;
-
-await setDoc(
-doc(db,"users",currentUser.email),
-{
-name: currentUser.name,
-branch: currentUser.branch,
-profileImage: currentUser.profileImage,
-points: currentUser.points || 0
-},
-{ merge:true }
-);
-
-}
-async function loadUserFromFirestore(){
-
-if(!currentUser.email) return;
-
-const userRef = doc(
-db,
-"users",
-currentUser.email
-);
-
-const userSnap = await getDoc(userRef);
-
-if(userSnap.exists()){
-
-currentUser = {
-...currentUser,
-...userSnap.data()
-};
-
-localStorage.setItem(
-"currentUser",
-JSON.stringify(currentUser)
-);
-
-renderProfile();
-
-}
-
-}
 renderProfile();
 
 function renderProfile(){
@@ -428,34 +384,19 @@ document.getElementById("profileModal")
 
 }
 
-async function updatePoints(value){
+function updatePoints(value){
 
-currentUser.points =
-(currentUser.points || 0) + value;
-
-/* SAVE LOCAL */
+currentUser.points += value;
 
 localStorage.setItem(
 "currentUser",
 JSON.stringify(currentUser)
 );
 
-/* SAVE TO FIRESTORE */
+document.getElementById("points").innerText=currentUser.points;
+document.getElementById("pointsDisplay").innerText=currentUser.points;
 
-await syncUserToFirestore();
-
-/* UPDATE UI */
-
-document.getElementById("points")
-.innerText=currentUser.points;
-
-document.getElementById("pointsDisplay")
-.innerText=currentUser.points;
-
-/* REFRESH LEADERBOARD */
-
-loadLeaderboard();
-
+updateLeaderboard();
 }
 
 function logoutUser(){
@@ -1067,8 +1008,6 @@ updateRank();
 
 closeProfileModal();
 
-await syncUserToFirestore();
-
 alert("Profile Updated 🚀");
 }
 
@@ -1095,15 +1034,15 @@ displayResources(resources);
 
 }
 
-setTimeout(async()=>{
-
-await loadUserFromFirestore();
+setTimeout(()=>{
 
 loadResources();
 
 loadDoubts();
 
-loadLeaderboard();
+updateLeaderboard();
+
+updateRank();
 
 },1000);
 
@@ -1111,9 +1050,16 @@ loadLeaderboard();
 
 <script type="module">
 
+/* FIREBASE APP */
+
 import { initializeApp }
+
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+/* FIRESTORE */
+
 import {
+
 getFirestore,
 collection,
 addDoc,
@@ -1122,11 +1068,14 @@ query,
 orderBy,
 updateDoc,
 doc,
-increment,
-setDoc,
-getDoc
+increment
+
 }
+
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* YOUR FIREBASE CONFIG */
+
 const firebaseConfig = {
   apiKey: "AIzaSyAjkst7jRpOFUguAPb856TcJD88Zsk23Us",
   authDomain: "circleshare-6bd41.firebaseapp.com",
@@ -1136,8 +1085,18 @@ const firebaseConfig = {
   messagingSenderId: "182780059158",
   appId: "1:182780059158:web:ca3aa6db6b07d77e039f37"
 };
+
+
+/* INITIALIZE FIREBASE */
+
 const app = initializeApp(firebaseConfig);
+
+/* CONNECT FIRESTORE */
+
 const db = getFirestore(app);
+
+/* MAKE FIREBASE FUNCTIONS GLOBAL */
+
 window.db = db;
 window.collection = collection;
 window.addDoc = addDoc;
@@ -1147,24 +1106,54 @@ window.orderBy = orderBy;
 window.updateDoc = updateDoc;
 window.doc = doc;
 window.increment = increment;
-window.setDoc = setDoc;
-window.getDoc = getDoc;
-</script>
 
+</script>
 <!-- PROFILE MODAL -->
-<div id="profileModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-<div class="bg-white dark:bg-slate-900 rounded-2xl p-8 w-full max-w-lg">
-<h2 class="text-2xl font-bold mb-5">Edit Profile</h2>
-<input id="editName" placeholder="Your Name" class="w-full p-3 rounded-xl border mb-4">
-<input id="editBranch" placeholder="Branch & Year" class="w-full p-3 rounded-xl border mb-4">
-<input id="editImage" placeholder="Profile Image URL" class="w-full p-3 rounded-xl border mb-4">
-<button onclick="saveProfile()" class="w-full bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 text-white py-3 rounded-xl transition-all duration-300">
+
+<div id="profileModal"
+class="hidden fixed inset-0 bg-black/50
+flex items-center justify-center z-50">
+
+<div class="bg-white dark:bg-slate-900
+rounded-2xl p-8 w-full max-w-lg">
+
+<h2 class="text-2xl font-bold mb-5">
+Edit Profile
+</h2>
+
+<input
+id="editName"
+placeholder="Your Name"
+class="w-full p-3 rounded-xl border mb-4">
+
+<input
+id="editBranch"
+placeholder="Branch & Year"
+class="w-full p-3 rounded-xl border mb-4">
+
+<input
+id="editImage"
+placeholder="Profile Image URL"
+class="w-full p-3 rounded-xl border mb-4">
+
+<button
+onclick="saveProfile()"
+class="w-full bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 text-white py-3 rounded-xl transition-all duration-300">
+
 Save Changes
+
 </button>
-<button onclick="closeProfileModal()" class="w-full mt-3 border py-3 rounded-xl">
+
+<button
+onclick="closeProfileModal()"
+class="w-full mt-3 border py-3 rounded-xl">
+
 Cancel
+
 </button>
+
 </div>
+
 </div>
 </body>
 </html>
