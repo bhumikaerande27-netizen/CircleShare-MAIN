@@ -17,7 +17,7 @@ tailwind.config = {
                 brand:{
                     50:'#f5f3ff',
                     100:'#ede9fe',
-                    500:'#8b5cf6',
+                    500:'#9333ea',
                     600:'#7c3aed',
                     700:'#6d28d9',
                     900:'#4c1d95'
@@ -53,7 +53,7 @@ body{
     width:6px;
 }
 ::-webkit-scrollbar-thumb{
-    background:#8b5cf6;
+    background:#9333ea;
     border-radius:20px;
 }
 </style>
@@ -66,7 +66,7 @@ body{
 <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
 
 <div class="flex items-center gap-3">
-<div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center text-white font-bold">C</div>
+<div class="w-10 h-10 bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 rounded-xl flex items-center justify-center text-white font-bold">C</div>
 <h1 class="font-bold text-2xl text-brand-700 dark:text-brand-400">CircleShare</h1>
 </div>
 
@@ -75,7 +75,7 @@ body{
 <a href="#resourcesSection" class="hover:text-brand-600">Resources</a>
 <a href="#doubtsSection" class="hover:text-brand-600">Doubts</a>
 <a href="#leaderboardSection" class="hover:text-brand-600">Leaderboard</a>
-</div>
+</div> 
 
 <div class="flex items-center gap-4">
 <button onclick="toggleTheme()" class="text-xl" id="themeIcon">🌙</button>
@@ -115,7 +115,7 @@ Upload notes, solve doubts, earn contribution points and become our SYCET's top 
 </p>
 
 <div class="mt-6 flex gap-4">
-<button onclick="openModal()" class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg">
+<button onclick="openModal()" class="bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 text-white px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300">
 Upload Resource
 </button>
 
@@ -182,7 +182,7 @@ Explore Notes
 
 <textarea id="doubtQuestion" rows="3" placeholder="Ask your doubt..." class="w-full p-3 rounded-xl border bg-white dark:bg-slate-900"></textarea>
 
-<button onclick="postDoubt()" class="mt-4 bg-brand-600 text-white px-5 py-2 rounded-xl">
+<button onclick="postDoubt()" class="mt-4 bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 text-white px-5 py-2 rounded-xl transition-all duration-300">
 Post Doubt
 </button>
 
@@ -214,8 +214,7 @@ class="text-slate-500"></p>
 <button
 onclick="openProfileModal()"
 
-class="mt-5 w-full bg-brand-600
-hover:bg-brand-700
+class="mt-5 w-full bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90
 text-white py-3 rounded-xl
 font-semibold transition-all duration-300">
 
@@ -299,7 +298,7 @@ Supported: PDF, DOCX, PPT, Images
 
 </div>
 
-<button onclick="uploadResource()" class="w-full bg-brand-600 text-white py-3 rounded-xl">
+<button onclick="uploadResource()" class="w-full bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 text-white py-3 rounded-xl">
 Upload
 </button>
 
@@ -469,7 +468,7 @@ Ratings
 <div class="grid grid-cols-2 gap-3 mt-4">
 
 <a href="${r.fileURL}" target="_blank"
-class="bg-brand-600 hover:bg-brand-700 text-white py-2 rounded-lg text-center">
+class="bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 text-white py-2 rounded-lg text-center">
 Preview
 </a>
 
