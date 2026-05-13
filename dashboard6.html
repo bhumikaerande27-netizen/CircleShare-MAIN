@@ -213,7 +213,7 @@ class="text-slate-500"></p>
 
 <div class="mt-4 bg-brand-50 dark:bg-brand-900/20 p-4 rounded-xl">
 <h4 class="font-bold">⭐ Points: <span id="points">30</span></h4>
-<p>🏆 Rank #1 Contributor</p>
+<p id="rankDisplay">🏆 Rank #-- Contributor</p>
 </div>
 <button
 onclick="openProfileModal()"
@@ -648,7 +648,7 @@ placeholder="Write answer..."
 class="flex-1 p-3 rounded-xl border bg-white dark:bg-slate-900">
 
 <button onclick="submitAnswer('${docSnap.id}')"
-class="bg-gradient-to-r from-purple-600 to-indigo-500 hover:opacity-90 text-white px-4 rounded-xl transition-all duration-300">
+class="bg-gradient-to-t from-purple-600 to-indigo-500 hover:opacity-90 text-white px-4 rounded-xl transition-all duration-300">
 Answer
 </button>
 
@@ -756,35 +756,44 @@ function updateLeaderboard(){
 
 let users = JSON.parse(
 localStorage.getItem("leaderboard")
-
 ) || [];
+users = users.filter(
+(user,index,self)=>
 
+index === self.findIndex(
+u => u.name === user.name
+)
+);
+
+users = users.filter(user => {
+if(
+user.name.includes("@") ||
+user.name.includes("gmail") ||
+user.name.includes("google")
+){
+return false;
+}
+return true;
+});
 let existing = users.find(
-u=>u.name===currentUser.name
+u => u.name === currentUser.name
 );
 
 if(existing){
-
-existing.points=currentUser.points;
-
+existing.points = currentUser.points;
 }else{
-
 users.push({
 name:currentUser.name,
 points:currentUser.points
 });
-
 }
-
 users.sort((a,b)=>b.points-a.points);
-
 localStorage.setItem(
 "leaderboard",
 JSON.stringify(users)
 );
-
 renderLeaderboard();
-
+updateRank();
 }
 
 function renderLeaderboard(){
@@ -822,6 +831,23 @@ ${u.name}
 `;
 
 });
+
+}
+
+function updateRank(){
+
+let users = JSON.parse(
+localStorage.getItem("leaderboard")
+) || [];
+users.sort((a,b)=>b.points-a.points);
+let rank = users.findIndex(
+u => u.name === currentUser.name
+) + 1;
+if(rank === 0){
+rank = "--";
+}
+document.getElementById("rankDisplay")
+.innerText = `🏆 Rank #${rank} Contributor`;
 
 }
 
@@ -978,6 +1004,8 @@ renderProfile();
 
 renderLeaderboard();
 
+updateRank();
+
 closeProfileModal();
 
 alert("Profile Updated 🚀");
@@ -1013,6 +1041,8 @@ loadResources();
 loadDoubts();
 
 updateLeaderboard();
+
+updateRank();
 
 },1000);
 
