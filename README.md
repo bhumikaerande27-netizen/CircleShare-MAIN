@@ -19,7 +19,7 @@ CircleShare is a web platform designed to eliminate the struggle of finding real
     4) Preview of the resource.
     5) Contribution points for user engagement.
     6) Fast search functionality.
-    7) Secure students login systems.
+    7) Secure student login system.
 
 # CORE FEATURES :
 
