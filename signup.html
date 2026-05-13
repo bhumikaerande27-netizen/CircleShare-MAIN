@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CircleShare | Secure Sign</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* The specific purple-indigo gradient from your dashboard */
+        .animate-gradient {
+            background: linear-gradient(-45deg, #6366f1, #a855f7, #4f46e5, #9333ea);
+            background-size: 400% 400%;
+            animation: gradient 12s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .input-focus-effect:focus {
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-white overflow-x-hidden">
+
+    <div class="flex min-h-screen w-full">
+        
+        <div class="hidden lg:flex lg:w-[55%] animate-gradient p-20 flex-col justify-between relative overflow-hidden text-white">
+            <div class="absolute top-0 left-0 w-full h-full opacity-30">
+                <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-white rounded-full blur-[120px]"></div>
+                <div class="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-300 rounded-full blur-[120px]"></div>
+            </div>
+            
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-24">
+                    <div>
+                        <img src="img/main_logo2-removebg-preview.png" alt="CircleShare Logo" class="w-33 h-36">
+                    </div>
+                    <span class="text-3xl font-extrabold tracking-tighter"></span>
+                </div>
+                
+                <div class="max-w-lg">
+                    <h1 class="text-6xl font-extrabold leading-[1.1] mb-6 tracking-tight">
+                        Your Academic <br><span class="text-indigo-200">Evolution</span> Starts Here.
+                    </h1>
+                    <p class="text-xl text-indigo-100/90 leading-relaxed font-medium mb-8">
+                        Streamlining engineering resources for every student. Sign in to access your NOTES, PYQs, Q&A and LeaderBoard.
+                    </p>
+                </div>
+            </div>
+
+            
+        </div>
+
+        <div class="w-full lg:w-[45%] flex items-center justify-center p-8 md:p-16 bg-slate-50 lg:bg-white">
+            <div class="w-full max-w-md">
+                
+                <div class="lg:hidden flex flex-col items-center justify-center gap-2 mb-10">
+                    <div>
+                        <img src="img/main_logo-removebg-preview.png" alt="CircleShare Logo" class="w-33 h-36">
+                    </div>
+                    <span class="text-3xl font-extrabold tracking-tighter"></span>
+                </div>
+
+                <div class="mb-10 flex flex-col items-center justify-center"> 
+                    <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">Welcome Peers</h2> 
+                    <p class="text-slate-500 font-medium">Please enter your account details below.</p> 
+                </div>
+
+                <button id="google-login" class="w-full flex items-center justify-center gap-3 py-3.5 border border-slate-200 rounded-2xl font-bold text-slate-700 hover:bg-slate-50 transition-all mb-8 shadow-sm">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+                    Continue with Google
+                </button>
+
+                <div class="relative flex items-center mb-8">
+                    <div class="flex-grow border-t border-slate-200"></div>
+                    <span class="flex-shrink mx-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Or Signup with email</span>
+                    <div class="flex-grow border-t border-slate-200"></div>
+                </div>
+
+                <form action="#" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2 ml-1">Email Address</label>
+                        <input type="email" id="email" required placeholder="e.g. name@gmail.com" 
+                            class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-purple-500 outline-none transition-all bg-slate-50/50 text-slate-900 input-focus-effect">
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between mb-2 ml-1">
+                            <label class="text-sm font-bold text-slate-700">Password</label>
+                            <a href="#" id="reset" class="text-sm font-bold text-indigo-600 hover:text-indigo-800 transition-colors">Forgot password?</a>
+                        </div>
+                        <input type="password" id="password" required placeholder="••••••••" 
+                            class="w-full px-5 py-4 rounded-2xl border border-slate-200 focus:border-purple-500 outline-none transition-all bg-slate-50/50 text-slate-900 input-focus-effect">
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 rounded-lg border-slate-300 text-purple-600 focus:ring-purple-500 transition-all">
+                            <span class="ml-3 text-sm font-medium text-slate-600 group-hover:text-slate-900 transition-colors">Remember me</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="signup_btn">
+                        Sign Up
+                    </button>
+                    
+                    <div class="msg_box"></div>
+
+                </form>
+
+                <p class="mt-10 text-center text-slate-500 font-medium">
+                   Already have an account? 
+                    <a href="/login.html" class="text-indigo-600 hover:text-indigo-800 font-bold underline underline-offset-4 decoration-2">Login</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <script type="module">
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { 
+    getAuth,
+     sendPasswordResetEmail,
+      sendEmailVerification,
+       createUserWithEmailAndPassword,
+       signInWithEmailAndPassword,
+         GoogleAuthProvider,
+          signInWithPopup 
+}
+ from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+
+const btn = document.querySelector(".signup_btn");
+const message = document.querySelector(".msg_box");
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyAjkst7jRpOFUguAPb856TcJD88Zsk23Us",
+    authDomain: "circleshare-6bd41.firebaseapp.com",
+    projectId: "circleshare-6bd41",
+    storageBucket: "circleshare-6bd41.firebasestorage.app",
+    messagingSenderId: "182780059158",
+    appId: "1:182780059158:web:ca3aa6db6b07d77e039f37"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+auth.languageCode = 'en';
+    btn.addEventListener("click", function(event){
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        event.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+
+const user = userCredential.user;
+
+/* LOAD USERS */
+
+let users = JSON.parse(
+localStorage.getItem("users")
+) || [];
+
+/* CREATE USER PROFILE */
+
+let newUser = {
+
+email:user.email,
+
+name:user.email.split("@")[0],
+
+branch:"2nd Year AI/ML",
+
+profileImage:
+`https://ui-avatars.com/api/?name=${user.email.split("@")[0]}&background=8b5cf6&color=fff`,
+
+points:0
+
+};
+
+/* SAVE USER */
+
+users.push(newUser);
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+localStorage.setItem(
+"currentUser",
+JSON.stringify(newUser)
+);
+
+message.textContent =
+"Account created successfully!";
+
+message.className =
+"msg_box created";
+
+setTimeout(() => {
+window.location.href = "dashboard6.html";
+},1500);
+
+})
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        message.className = "msg_box error";
+        console.log(errorCode);
+        message.textContent = "Error creating account!";
+        message.classList.add("error");
+        if(errorCode == "auth/email-already-in-use"){
+            message.textContent = "This Email is already registered!";
+        }
+        else if(errorCode == "auth/invalid-email"){
+            message.textContent = "Invalid email address!";
+        }
+        else if(errorCode == "auth/weak-password"){
+            message.textContent = "Password should be at least 6 characters!";
+        }
+});
+});
+//reset password
+const reset = document.getElementById("reset");
+reset.addEventListener("click", function(event){
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    
+    sendPasswordResetEmail(auth, email)
+    .then(() => {
+        message.textContent = "Password reset email sent!";
+        message.classList.remove("error");
+        message.classList.add("created");
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        message.textContent = "Error sending password reset email!";
+        message.classList.add("error");
+        if(errorCode == "auth/user-not-found"){
+            message.textContent = "No user found with this email!";
+        }
+        else if(errorCode == "auth/invalid-email"){
+            message.textContent = "Invalid email address!";
+        }
+    });
+});
+    //GoogleAuth
+    
+    const provider = new GoogleAuthProvider();
+    const googleLogin = document.getElementById("google-login");
+    googleLogin.addEventListener("click", function(){
+      
+     signInWithPopup(auth, provider)
+     .then((result) => {
+         const credential = GoogleAuthProvider.credentialFromResult(result);
+         const user = result.user;
+         console.log("Google Sign-In successful:", user);
+         window.location.href = "dashboard6.html";
+     })
+     .catch((error) => {
+         const errorCode = error.code;
+         const errorMessage = error.message;
+ });
+ });
+
+</script>
+</body>
+</html>

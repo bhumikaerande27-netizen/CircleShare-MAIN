@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peers Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-400 to-indigo-500">
+    <div class="grid h-screen place-items-center text-white">
+    <div class="text-center">
+      <img src="img/main_logo2-removebg-preview.png" alt="logo" class="w-70 h-60 mr-28 ml-16 ">
+        <h6 class="text-xl font-bold text-white mr-48 mb-12">Streamlining engineering resources for every student. <br>
+          Sign in to access your NOTES, PYQs, Q&A and LeaderBoard.</h6>
+  </div>
+</div>
+
+    
+
+  <div class="w-full max-w-md bg-transparent p-8 bg-white color-gray-900 rounded-lg shadow-lg">
+    
+    <!-- Heading -->
+    <h1 class="text-5xl font-bold text-center text-gray-900">Welcome Back</h1>
+    <p class="text-center text-gray-500 mt-3 text-lg">
+      Please login to your account
+    </p>
+
+    <!-- Google Login -->
+    <button id="google-login" class="w-full mt-10 border-2 border-gray-700 rounded-2xl py-4 flex items-center justify-center gap-3 text-xl font-medium hover:bg-gray-50">
+      <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-6 h-6" alt="Google">
+      Continue with Google
+    </button>
+
+    <!-- Divider -->
+    <div class="flex items-center my-8">
+      <hr class="flex-grow border-gray-300">
+      <span class="mx-4 text-gray-400 font-semibold">OR LOGIN WITH EMAIL</span>
+      <hr class="flex-grow border-gray-300">
+    </div>
+
+    <!-- Email -->
+    <label class="font-semibold text-gray-700">Email Address</label>
+    <input type="email" id="email" placeholder="e.g. name@gmail.com"
+      class="w-full mt-2 p-4 rounded-2xl border border-gray-300 focus:outline-none">
+
+    <!-- Password -->
+    <div class="flex justify-between mt-6">
+      <label class="font-semibold text-gray-700">Password</label>
+      <a href="#" id="reset" class="text-blue-600 font-semibold">Forgot password?</a>
+    </div>
+
+    <input type="password" id="password" placeholder="••••••••"
+      class="w-full mt-2 p-4 rounded-2xl border border-gray-300 focus:outline-none">
+
+    <!-- Remember -->
+    <div class="flex items-center mt-6">
+      <input type="checkbox" class="w-5 h-5">
+      <span class="ml-3 text-lg">Remember me</span>
+    </div>
+
+    <!-- Login Button -->
+    <button type="submit" class=" login_btn w-full mt-8 py-4 rounded-full text-white text-2xl font-semibold bg-gradient-to-r from-purple-600 to-indigo-500 hover:opacity-90">
+      Login
+    </button>
+
+    <div class="msg_box"></div>
+
+    <!-- Signup Link -->
+    <p class="text-center text-gray-500 mt-8 text-lg">
+      Don't have an account?
+      <a href="signup.html" class="text-blue-600 font-semibold underline">Sign Up</a>
+    </p>
+
+  </div>
+     <script type="module">
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { 
+    getAuth,
+     sendPasswordResetEmail,
+       signInWithEmailAndPassword,
+         GoogleAuthProvider,
+          signInWithPopup 
+}
+ from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+
+const btn = document.querySelector(".login_btn");
+const message = document.querySelector(".msg_box");
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyAjkst7jRpOFUguAPb856TcJD88Zsk23Us",
+    authDomain: "circleshare-6bd41.firebaseapp.com",
+    projectId: "circleshare-6bd41",
+    storageBucket: "circleshare-6bd41.firebasestorage.app",
+    messagingSenderId: "182780059158",
+    appId: "1:182780059158:web:ca3aa6db6b07d77e039f37"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+auth.languageCode = 'en';
+    btn.addEventListener("click", function(event){
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        event.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+.then((userCredential) => {
+
+const user = userCredential.user;
+
+/* LOAD USERS DATABASE */
+
+let users = JSON.parse(
+localStorage.getItem("users")
+) || [];
+
+/* FIND EXISTING USER */
+
+let existingUser = users.find(
+u => u.email === user.email
+);
+
+/* IF USER EXISTS */
+
+if(existingUser){
+
+localStorage.setItem(
+"currentUser",
+JSON.stringify(existingUser)
+);
+
+}else{
+
+/* CREATE NEW USER PROFILE */
+
+let newUser = {
+
+email:user.email,
+
+name:user.email.split("@")[0],
+
+branch:" Year Branch",
+profileImage:
+`https://ui-avatars.com/api/?name=${user.email.split("@")[0]}&background=8b5cf6&color=fff`,
+points:0
+};
+
+/* SAVE USER */
+
+users.push(newUser);
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+localStorage.setItem(
+"currentUser",
+JSON.stringify(newUser)
+);
+}
+message.textContent = "Login successful!";
+message.className = "msg_box created";
+
+setTimeout(() => {
+window.location.href = "dashboard6.html";
+},1000);
+})
+.catch((error) => {
+    const errorCode = error.code;
+    message.className = "msg_box error";
+    if(errorCode === "auth/user-not-found"){
+        message.textContent = "No account found!";
+    }
+    else if(errorCode === "auth/wrong-password"){
+        message.textContent = "Incorrect password!";
+    }
+    else if(errorCode === "auth/invalid-email"){
+        message.textContent = "Invalid email!";
+    }
+    else if(errorCode === "auth/invalid-credential"){
+        message.textContent = "Wrong email or password!";
+    }
+    else if(errorCode === "auth/too-many-requests"){
+        message.textContent = "Too many attempts. Try again later.";
+    }
+    else{
+        message.textContent = errorCode;
+    }
+});
+});
+//reset password
+const reset = document.getElementById("reset");
+reset.addEventListener("click", function(event){
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    
+    sendPasswordResetEmail(auth, email)
+    .then(() => {
+        message.textContent = "Password reset email sent!";
+        message.classList.remove("error");
+        message.classList.add("created");
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        message.textContent = "Error sending password reset email!";
+        message.classList.add("error");
+        if(errorCode == "auth/user-not-found"){
+            message.textContent = "No user found with this email!";
+        }
+        else if(errorCode == "auth/invalid-email"){
+            message.textContent = "Invalid email address!";
+        }
+    });
+});
+    //GoogleAuth
+    
+    const provider = new GoogleAuthProvider();
+    const googleLogin = document.getElementById("google-login");
+    googleLogin.addEventListener("click", function(){
+      
+     signInWithPopup(auth, provider)
+     .then((result) => {
+
+const user = result.user;
+
+/* LOAD USERS */
+
+let users = JSON.parse(
+localStorage.getItem("users")
+) || [];
+
+/* FIND USER */
+
+let existingUser = users.find(
+u => u.email === user.email
+);
+
+/* EXISTING USER */
+
+if(existingUser){
+
+localStorage.setItem(
+"currentUser",
+JSON.stringify(existingUser)
+);
+
+}else{
+
+/* CREATE PROFILE */
+
+let newUser = {
+
+email:user.email,
+
+name:user.displayName || user.email.split("@")[0],
+
+branch:" Year Branch",
+
+profileImage:
+user.photoURL ||
+
+`https://ui-avatars.com/api/?name=${user.displayName || "Student"}&background=8b5cf6&color=fff`,
+
+points:0
+
+};
+
+users.push(newUser);
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+localStorage.setItem(
+"currentUser",
+JSON.stringify(newUser)
+);
+
+}
+
+window.location.href = "dashboard6.html";
+
+})
+     .catch((error) => {
+         const errorCode = error.code;
+         const errorMessage = error.message;
+ });
+ });
+
+</script>
+
+</body>
+</html>
