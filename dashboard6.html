@@ -793,7 +793,7 @@ localStorage.setItem(
 JSON.stringify(users)
 );
 renderLeaderboard();
-updateRank
+updateRank();
 }
 
 function renderLeaderboard(){
@@ -1004,6 +1004,8 @@ renderProfile();
 
 renderLeaderboard();
 
+updateRank();
+
 closeProfileModal();
 
 alert("Profile Updated 🚀");
@@ -1039,6 +1041,8 @@ loadResources();
 loadDoubts();
 
 updateLeaderboard();
+
+updateRank();
 
 },1000);
 
@@ -1120,17 +1124,17 @@ Edit Profile
 <input
 id="editName"
 placeholder="Your Name"
-class="w-full p-3 rounded-xl border mb-4">
+class="w-full p-3 rounded-xl border mb-4 text-black">
 
 <input
 id="editBranch"
 placeholder="Branch & Year"
-class="w-full p-3 rounded-xl border mb-4">
+class="w-full p-3 rounded-xl border mb-4 text-black">
 
 <input
 id="editImage"
 placeholder="Profile Image URL"
-class="w-full p-3 rounded-xl border mb-4">
+class="w-full p-3 rounded-xl border mb-4 text-black">
 
 <button
 onclick="saveProfile()"
@@ -1145,11 +1149,8 @@ onclick="closeProfileModal()"
 class="w-full mt-3 border py-3 rounded-xl">
 
 Cancel
-
 </button>
-
 </div>
-
 </div>
 </body>
 </html>
