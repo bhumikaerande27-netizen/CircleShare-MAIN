@@ -318,17 +318,13 @@ Cancel
 
 let currentUser = JSON.parse(
 localStorage.getItem("currentUser")
-) || {
+);
 
-name:"Student",
-branch:"Year, Branch",
+if(!currentUser){
 
-profileImage:
-"https://ui-avatars.com/api/?name=Student&background=8b5cf6&color=fff",
+window.location.href = "login.html";
 
-points:0
-
-};
+}
 
 let resources = [];
 let doubts = [];
@@ -388,15 +384,53 @@ function updatePoints(value){
 
 currentUser.points += value;
 
+/* SAVE CURRENT USER */
+
 localStorage.setItem(
 "currentUser",
 JSON.stringify(currentUser)
 );
 
-document.getElementById("points").innerText=currentUser.points;
-document.getElementById("pointsDisplay").innerText=currentUser.points;
+/* UPDATE USERS DATABASE */
+
+let users = JSON.parse(
+localStorage.getItem("users")
+) || [];
+
+users = users.map(user => {
+
+if(user.email === currentUser.email){
+
+return {
+...user,
+points: currentUser.points
+};
+
+}
+
+return user;
+
+});
+
+/* SAVE UPDATED USERS */
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+/* UPDATE UI */
+
+document.getElementById("points").innerText =
+currentUser.points;
+
+document.getElementById("pointsDisplay").innerText =
+currentUser.points;
+
+/* UPDATE LEADERBOARD */
 
 updateLeaderboard();
+
 }
 
 function logoutUser(){
@@ -958,9 +992,25 @@ localStorage.getItem("users")
 users = users.map(user => {
 
 if(user.email === currentUser.email){
-return currentUser;
+
+return {
+
+...user,
+
+name:newName,
+
+branch:newBranch,
+
+profileImage:newImage,
+
+points:currentUser.points
+
+};
+
 }
+
 return user;
+
 });
 localStorage.setItem(
 "users",
