@@ -906,17 +906,33 @@ return;
 
 }
 
-currentUser.name=newName;
+currentUser.name= newName;
 
-currentUser.branch=newBranch;
+currentUser.branch= newBranch;
 
-currentUser.profileImage=newImage;
+currentUser.profileImage= newImage;
 
 localStorage.setItem(
 "currentUser",
 JSON.stringify(currentUser)
 );
+/* UPDATE USERS DATABASE */
 
+let users = JSON.parse(
+localStorage.getItem("users")
+) || [];
+
+users = users.map(user => {
+
+if(user.email === currentUser.email){
+return currentUser;
+}
+return user;
+});
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
 renderProfile();
 
 closeProfileModal();
