@@ -1,16 +1,16 @@
-# TEAM NAME : 
+# ✨ TEAM NAME : 
  QUAD CORE (Members-4)
 
-# PROJECT TITLE :
+# ⇨ PROJECT TITLE :
  PEER-TO-PEER RESOURCE HUB (sycet-013m)
 
- # WEBAPP NAME :
+ # ⇨ WEBAPP NAME :
  CircleShare 
 
-# DESCRIPTION : 
+# ⇨ DESCRIPTION : 
 CircleShare is a web platform designed to eliminate the struggle of finding realiable study notes,previous year question paper (PYQ'S), and reference materials . Unlike a simple file sharing folder, this hub uses a social ranking system to ensure the most accurate and helpful content is easiest to find . it fosters a culture of collaborative learning where peers help each other by passing and sharing of curated resources.  
 
-# SOLUTION :
+# 💡 SOLUTION :
  To build an effective solution ,we focused on:
     
     1) Organised Year-wise and Branch-wise content.
@@ -21,7 +21,7 @@ CircleShare is a web platform designed to eliminate the struggle of finding real
     6) Fast search functionality.
     7) Secure student login system.
     
-## Color Reference
+## 🎨 Color Reference
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
