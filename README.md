@@ -20,73 +20,7 @@ CircleShare is a web platform designed to eliminate the struggle of finding real
     5) Contribution points for user engagement.
     6) Fast search functionality.
     7) Secure student login system.
-
-# CORE FEATURES :
-
- 1) STRUCTURED UPLOAD :
- 
-                      
-                      Resources are categorized 
-                      department wise (e.g,
-                      computer science,mechanical,
-                      electrical,5g,ece,civil 
-                      etc),resource type, resource
-                      name and specific subject codes 
-                      to keep the data based 
-                      organized.
-
- 3) QUALITY RANKING SYSTEM :
-                    
-                      Highly-rated notes appear
-                      first in search results, 
-                      while low-quality or 
-                      incorrect files are flagged
-                      through the resource rating system.
-
- 5) PREVIEW MODE :
- 
-                    
-                      Integration of a PDF views so 
-                      users can read the first few 
-                      pages before deciding to 
-                      download the file
-
-6) DOWNLOAD :
- 
-                    
-                      Integration of a download button so 
-                      that users can download and access the 
-                      resource they want to use.
-
- 7) USER DASHBOARD : 
- 
-                   
-                      A personal space for 
-                      contributors to see how many 
-                      people they have helped by 
-                      their resource and solutions (through there XP count).
-
- 8) TOGGLE THEMES  :
-
-
-                      Users can change the theme from light🌞 to
-                      dark🌙 based on there convenience and can
-                      acheive a better experience while using
-                      CircleShare.
-
- # TECHNICAL IMPLEMENTATION :
-
-   FRONTEND: HTML, CSS(Tailwind), JavaScript
-
-   BACKEND :  Firebase/ Node.js
-
-   DATABASE : Firestore
-
-   STORAGE : Cloudinary/Firebase
-
-  
     
-
 ## Color Reference
 
 | Color             | Hex                                                                |
@@ -97,14 +31,280 @@ CircleShare is a web platform designed to eliminate the struggle of finding real
 | Example Color | ![#FFFFFF](https://dummyimage.com/10/#FFFFFF/white?text=+) #FFFFFF
 
 
-## Features
+## 🌟 Features
 
-- Light/Dark Mode
-- Doubt Section
-- Well-Organized Resources
-- Live Previews
-- Download
-- Quality Ranking System
-- Resposive Interphase 
-- Leaderboard
-- Secure Login/Logout
+### 🔐 Authentication System
+
+* Email & Password Signup/Login
+* Google Authentication
+* Password Reset using Firebase Auth
+* Persistent user sessions
+* User profile creation
+
+### 👤 User Profiles
+
+* Editable profile
+* Profile image support
+* Branch & year information
+* XP tracking
+* Dynamic leaderboard ranking
+
+### 📚 Resource Sharing
+
+* Upload:
+
+  * Notes
+  * PYQs
+  * Assignments
+  * Practicals
+  * Reference Books
+  * Question Banks
+* Cloudinary file hosting
+* Preview & download resources
+* Resource ratings system
+
+### ❓ Doubt Section
+
+* Ask doubts
+* Answer other students’ questions
+* Real-time doubt updates using Firestore
+
+### 🏆 XP & Leaderboard
+
+* Earn XP by:
+
+  * Uploading resources (+20 XP)
+  * Posting doubts (+5 XP)
+  * Answering doubts (+10 XP)
+* Dynamic ranking system
+* Top contributors leaderboard
+
+### 🎨 Modern UI
+
+* Tailwind CSS styling
+* Responsive design
+* Dark mode support
+* Animated gradients
+* Glassmorphism effects
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+* HTML5
+* Tailwind CSS
+* Vanilla JavaScript
+
+## Backend & Database
+
+* Firebase Authentication
+* Firebase Firestore
+
+## Cloud Storage
+
+* Cloudinary
+
+---
+
+# 📂 Project Structure
+
+```bash
+CircleShare/
+│
+├── signup.html
+├── login.html
+├── dashboard6.html
+├── style.css
+├── img/
+│   ├── main_logo-removebg-preview.png
+│   └── main_logo2-removebg-preview.png
+│
+└── README.md
+```
+
+---
+
+# 🔥 Firebase Features Used
+
+## Firebase Authentication
+
+Used for:
+
+* User signup
+* User login
+* Google login
+* Password reset
+
+---
+
+## Firebase Firestore
+
+Used for:
+
+* Resources collection
+* Doubts collection
+* Ratings system
+
+---
+
+# ☁️ Cloudinary Integration
+
+Resources are uploaded to Cloudinary using:
+
+```javascript
+https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/auto/upload
+```
+
+Supported file formats:
+
+* PDF
+* DOCX
+* PPT/PPTX
+* PNG/JPG/JPEG
+
+---
+
+# ⚡ XP System
+
+| Action          | XP     |
+| --------------- | ------ |
+| Upload Resource | +20 XP |
+| Post Doubt      | +5 XP  |
+| Answer Doubt    | +10 XP |
+
+---
+
+# 🏅 Leaderboard System
+
+The leaderboard:
+
+* Sorts users by XP
+* Updates ranks dynamically
+* Highlights current user
+* Stores rankings in localStorage
+
+---
+
+# 🌙 Dark Mode
+
+CircleShare includes:
+
+* Light mode
+* Dark mode toggle
+* Persistent theme switching
+
+---
+
+# 🔎 Search & Filters
+
+Users can:
+
+* Search resources by name
+* Search by subject
+* Filter by:
+
+  * Year
+  * Branch
+
+---
+
+# 📱 Responsive Design
+
+Optimized for:
+
+* Desktop
+* Tablet
+* Mobile devices
+
+---
+
+# 🚀 How To Run The Project
+
+## 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/circleshare.git
+```
+
+---
+
+## 2️⃣ Open the Project
+
+Open the project folder in:
+
+* VS Code
+* Sublime Text
+* Any code editor
+
+---
+
+## 7️⃣ Run the Project
+
+Simply open:
+
+```bash
+signup.html
+```
+
+or
+
+```bash
+login.html
+```
+
+in your browser.
+
+---
+
+# 📌 Future Improvements
+
+* Real-time chat
+* AI doubt assistant
+* Notifications system
+* Admin dashboard
+* Resource approval system
+* Bookmarking resources
+* Better XP algorithms
+* Full Firestore-based leaderboard
+* Profile image upload
+* Mobile app version
+
+---
+
+# 🧠 Learning Concepts Used
+
+This project demonstrates:
+
+* Firebase Authentication
+* Firestore CRUD operations
+* Cloudinary uploads
+* Dynamic DOM manipulation
+* Responsive UI design
+* Local storage management
+* Async/Await
+* Tailwind CSS
+* Dark mode implementation
+
+---
+
+# 👨‍💻 Developed By
+
+* HTML
+* Tailwind CSS
+* JavaScript
+* Firebase
+* Cloudinary
+
+---
+
+# 📄 License
+
+This project is open-source and free to use for educational purposes.
+
+---
+
+# ⭐ CircleShare
+
+> Learn Together. Share Together. Grow Together.
